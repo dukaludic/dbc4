@@ -8,8 +8,6 @@ docker compose rm
 
 docker compose up -d
 
-mariadb_ready=false
-
 while ! mysqladmin ping -h"127.0.0.1" --silent; do
     echo "Waiting for mariadb container to start..."
     sleep 1
