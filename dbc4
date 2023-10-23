@@ -1,0 +1,22 @@
+#!/bin/bash
+
+cd ~/Desktop/dev/spinview/api
+
+docker compose stop
+
+docker compose rm
+
+docker compose up -d
+
+mariadb_ready=false
+
+while ! mysqladmin ping -h"127.0.0.1" --silent; do
+    echo "Waiting for mariadb container to start..."
+    sleep 1
+done
+
+npm run migrate -- up;
+
+npm start -- --setup-users;
+
+echo 'Done'
